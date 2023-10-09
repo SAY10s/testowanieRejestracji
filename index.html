@@ -137,6 +137,7 @@
       password: false,
       city: false,
       street: false,
+      age: false,
     };
 
     //walidacje wartości (zapisują się w objekcie "validations")
@@ -147,6 +148,7 @@
     validations.street = validateLenght(streetValue, 30);
     validations.city = validateLenght(cityValue, 30);
     validations.areInputsNotEmpty = areInputsNotEmpty();
+    validations.age = validateAge(birthdateValue);
     console.log(validations);
   });
 
@@ -218,5 +220,17 @@
     if (text.length > length || text.length < 2) {
       return false;
     } else return true;
+  };
+
+  //walidacja wieku
+  let validateAge = (dateOfBirth) => {
+    const birthdateValue = new Date(dateOfBirth);
+
+    // Oblicz datę, która byłaby 13 lat temu od dzisiejszej daty
+    const thirteenYearsAgo = new Date();
+    thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13);
+
+    // Porównaj datę urodzenia z datą "13 lat temu"
+    return birthdateValue <= thirteenYearsAgo;
   };
 </script>
