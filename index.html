@@ -129,8 +129,10 @@
     const streetValue = street.value;
     const housenumberValue = housenumber.value;
 
+    //obiekt przechowujący wartości "czy X jest poprawne"
     const validations = {
       email: false,
+      password: false,
     };
 
     // wyświetlanie pobranych wartości w konsoli
@@ -149,9 +151,11 @@
     console.log("Street:", streetValue);
     console.log("House Number:", housenumberValue);
 
-    console.log(validations.email);
+    //walidacje wartości (zapisują się w objekcie "validations")
+    console.log(validations);
     validations.email = validateEmail(emailValue, repeatemailValue);
-    console.log(validations.email);
+    validations.password = validatePassword(passwordValue, repeatpasswordValue);
+    console.log(validations);
   });
 
   //funkcje
@@ -159,6 +163,14 @@
   //walidacja emaila
   let validateEmail = (email, repeatemail) => {
     if (!email.includes("@") || email.includes(" ") || email !== repeatemail) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  let validatePassword = (password, repeatpassword) => {
+    if (password !== repeatpassword) {
       return false;
     } else {
       return true;
