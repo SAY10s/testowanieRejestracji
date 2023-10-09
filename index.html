@@ -131,6 +131,7 @@
 
     //obiekt przechowujący wartości "czy X jest poprawne"
     const validations = {
+      username: false,
       email: false,
       password: false,
       city: false,
@@ -155,6 +156,7 @@
 
     //walidacje wartości (zapisują się w objekcie "validations")
     console.log(validations);
+    validations.username = validateUsername(loginValue);
     validations.email = validateEmail(emailValue, repeatemailValue);
     validations.password = validatePassword(passwordValue, repeatpasswordValue);
     validations.street = validateLenght(streetValue, 30);
@@ -163,6 +165,21 @@
   });
 
   //funkcje
+
+  //walidacja loginu
+  let validateUsername = (username) => {
+    //sprawdzenie czy username jest juz zajęty
+    let isAlreadyTaken = false;
+    db.users.forEach((user) => {
+      if (user.username === username) {
+        isAlreadyTaken = true;
+      }
+    });
+
+    //zwaracanie wartości
+    if (isAlreadyTaken) return false;
+    else return true;
+  };
 
   //walidacja emaila
   let validateEmail = (email, repeatemail) => {
