@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+      }
+      input {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      select {
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- No kurczę formularz, nie wiem czego nie rozumiesz bracie -->
+    <form>
+      <div>login: <input type="text" name="login" id="login" /></div>
+      <div>
+        name: <input type="text" name="name" id="name" maxlength="50" />
+      </div>
+      <div>
+        surname:
+        <input type="text" name="surname" id="surname" maxlength="50" />
+      </div>
+      <div>email: <input type="email" name="email" id="email" /></div>
+      <div>
+        repeat email: <input type="email" name="repeatemail" id="repeatemail" />
+      </div>
+      <div>
+        password: <input type="password" name="password" id="password" />
+      </div>
+      <div>
+        repeat password:
+        <input type="password" name="repeatpassword" id="repeatpassword" />
+      </div>
+      <div>
+        Sex:
+        <select id="sex">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div>
+        birth date: <input type="date" name="birthdate" id="birthdate" />
+      </div>
+      <div>PESEL: <input type="number" name="PESEL" id="PESEL" /></div>
+      <div>city: <input type="text" name="city" id="city" /></div>
+      <div>
+        postal code: <input type="text" name="postalcode" id="postalcode" />
+      </div>
+      <div>street: <input type="text" name="street" id="street" /></div>
+      <div>
+        house number: <input type="text" name="housenumber" id="housenumber" />
+      </div>
+      <button id="register">Register</button>
+    </form>
+    <!-- No kurczę KONIEC FORMULARZA, nie wiem czego nie rozumiesz bracie -->
+  </body>
+</html>
+
+<!-- Skrypty w JS -->
+<script>
+  //pseudo baza danych
+  const db = {
+    users: [
+      {
+        id: 0,
+        username: "lodomir350",
+        password: "KaszaGryczana5",
+        email: "lodomir350@gmail.com",
+      },
+      {
+        id: 1,
+        username: "WitcherGracek",
+        password: "piwokochampiwo",
+        email: "gruby2137@gmail.com",
+      },
+      {
+        id: 2,
+        username: "Mefioo",
+        password: "lolilover429",
+        email: "mateuszdaszkiewicz@wp.pl",
+      },
+    ],
+  };
+
+  //pobranie pól formularza do zmiennych
+  const login = document.getElementById("login");
+  const nameInput = document.getElementById("name");
+  const surname = document.getElementById("surname");
+  const email = document.getElementById("email");
+  const repeatemail = document.getElementById("repeatemail");
+  const password = document.getElementById("password");
+  const repeatpassword = document.getElementById("repeatpassword");
+  const sex = document.getElementById("sex");
+  const birthdate = document.getElementById("birthdate");
+  const PESEL = document.getElementById("PESEL");
+  const city = document.getElementById("city");
+  const postalcode = document.getElementById("postalcode");
+  const street = document.getElementById("street");
+  const housenumber = document.getElementById("housenumber");
+  const register = document.querySelector("#register");
+
+  register.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // pobranie wartości pól formularza do osobnych zmiennych
+    const loginValue = login.value;
+    const nameValue = nameInput.value;
+    const surnameValue = surname.value;
+    const emailValue = email.value;
+    const repeatemailValue = repeatemail.value;
+    const passwordValue = password.value;
+    const repeatpasswordValue = repeatpassword.value;
+    const sexValue = sex.value;
+    const birthdateValue = birthdate.value;
+    const PESELValue = PESEL.value;
+    const cityValue = city.value;
+    const postalcodeValue = postalcode.value;
+    const streetValue = street.value;
+    const housenumberValue = housenumber.value;
+
+    const validations = {
+      email: false,
+    };
+
+    // wyświetlanie pobranych wartości w konsoli
+    console.log("Login:", loginValue);
+    console.log("Name:", nameValue);
+    console.log("Surname:", surnameValue);
+    console.log("Email:", emailValue);
+    console.log("Repeat Email:", repeatemailValue);
+    console.log("Password:", passwordValue);
+    console.log("Repeat Password:", repeatpasswordValue);
+    console.log("Sex:", sexValue);
+    console.log("Birth Date:", birthdateValue);
+    console.log("PESEL:", PESELValue);
+    console.log("City:", cityValue);
+    console.log("Postal Code:", postalcodeValue);
+    console.log("Street:", streetValue);
+    console.log("House Number:", housenumberValue);
+
+    console.log(validations.email);
+    validations.email = validateEmail(emailValue, repeatemailValue);
+    console.log(validations.email);
+  });
+
+  //funkcje
+
+  //walidacja emaila
+  let validateEmail = (email, repeatemail) => {
+    if (!email.includes("@") || email.includes(" ") || email !== repeatemail) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+</script>
