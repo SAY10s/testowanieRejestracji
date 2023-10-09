@@ -133,6 +133,8 @@
     const validations = {
       email: false,
       password: false,
+      city: false,
+      street: false,
     };
 
     // wyświetlanie pobranych wartości w konsoli
@@ -155,6 +157,8 @@
     console.log(validations);
     validations.email = validateEmail(emailValue, repeatemailValue);
     validations.password = validatePassword(passwordValue, repeatpasswordValue);
+    validations.street = validateLenght(streetValue, 30);
+    validations.city = validateLenght(cityValue, 30);
     console.log(validations);
   });
 
@@ -190,5 +194,12 @@
     } else {
       return true;
     }
+  };
+
+  //walidacja długości
+  let validateLenght = (text, length) => {
+    if (text.length > length || text.length < 2) {
+      return false;
+    } else return true;
   };
 </script>
