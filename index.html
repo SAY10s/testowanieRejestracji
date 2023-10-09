@@ -131,28 +131,13 @@
 
     //obiekt przechowujący wartości "czy X jest poprawne"
     const validations = {
+      areInputsNotEmpty: true,
       username: false,
       email: false,
       password: false,
       city: false,
       street: false,
     };
-
-    // wyświetlanie pobranych wartości w konsoli
-    console.log("Login:", loginValue);
-    console.log("Name:", nameValue);
-    console.log("Surname:", surnameValue);
-    console.log("Email:", emailValue);
-    console.log("Repeat Email:", repeatemailValue);
-    console.log("Password:", passwordValue);
-    console.log("Repeat Password:", repeatpasswordValue);
-    console.log("Sex:", sexValue);
-    console.log("Birth Date:", birthdateValue);
-    console.log("PESEL:", PESELValue);
-    console.log("City:", cityValue);
-    console.log("Postal Code:", postalcodeValue);
-    console.log("Street:", streetValue);
-    console.log("House Number:", housenumberValue);
 
     //walidacje wartości (zapisują się w objekcie "validations")
     console.log(validations);
@@ -161,10 +146,25 @@
     validations.password = validatePassword(passwordValue, repeatpasswordValue);
     validations.street = validateLenght(streetValue, 30);
     validations.city = validateLenght(cityValue, 30);
+    validations.areInputsNotEmpty = areInputsNotEmpty();
     console.log(validations);
   });
 
-  //funkcje
+  // ------------------------- funkcje -------------------------
+
+  //czy pola są puste
+  function areInputsNotEmpty() {
+    const inputs = document.querySelectorAll("input"); // Pobierz wszystkie elementy input w formularzu
+    for (const input of inputs) {
+      if (input.value.trim() === "") {
+        // Jeśli wartość inputu jest pusta (po usunięciu białych znaków), zwracamy false
+        return false;
+      }
+    }
+
+    // Jeśli nie znaleziono pustego inputu, zwracamy true
+    return true;
+  }
 
   //walidacja loginu
   let validateUsername = (username) => {
