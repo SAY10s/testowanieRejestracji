@@ -162,13 +162,28 @@
 
   //walidacja emaila
   let validateEmail = (email, repeatemail) => {
-    if (!email.includes("@") || email.includes(" ") || email !== repeatemail) {
+    //sprawdzanie czy dany email nie znajduje się juz w "bazie"
+    let isAlreadyTaken = false;
+    db.users.forEach((user) => {
+      if (user.email === email) {
+        isAlreadyTaken = true;
+      }
+    });
+
+    //sprawdzanie innych warunków
+    if (
+      !email.includes("@") ||
+      email.includes(" ") ||
+      email !== repeatemail ||
+      isAlreadyTaken
+    ) {
       return false;
     } else {
       return true;
     }
   };
 
+  //walidacja hasła
   let validatePassword = (password, repeatpassword) => {
     if (password !== repeatpassword) {
       return false;
