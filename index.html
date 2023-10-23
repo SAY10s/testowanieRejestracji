@@ -63,12 +63,15 @@
       </div>
       <button id="register">Register</button>
     </form>
+    <div class="errors">Wypełnij formularz</div>
     <!-- No kurczę KONIEC FORMULARZA, nie wiem czego nie rozumiesz bracie -->
   </body>
 </html>
 
 <!-- Skrypty w JS -->
 <script>
+  const errorsBox = document.querySelector(".errors");
+
   //pseudo baza danych
   const db = {
     users: [
@@ -112,6 +115,7 @@
 
   register.addEventListener("click", function (event) {
     event.preventDefault();
+    errorsBox.innerHTML = "";
 
     // pobranie wartości pól formularza do osobnych zmiennych
     const loginValue = login.value;
@@ -160,6 +164,7 @@
     for (const input of inputs) {
       if (input.value.trim() === "") {
         // Jeśli wartość inputu jest pusta (po usunięciu białych znaków), zwracamy false
+        errorsBox.innerHTML += "Formularz nie moze zawierac pustych pol <br>";
         return false;
       }
     }
@@ -175,6 +180,7 @@
     db.users.forEach((user) => {
       if (user.username === username) {
         isAlreadyTaken = true;
+        errorsBox.innerHTML += "Login jest juz zajety <br>";
       }
     });
 
@@ -189,6 +195,7 @@
     let isAlreadyTaken = false;
     db.users.forEach((user) => {
       if (user.email === email) {
+        errorsBox.innerHTML += "Email jest juz zajety <br>";
         isAlreadyTaken = true;
       }
     });
@@ -200,6 +207,8 @@
       email !== repeatemail ||
       isAlreadyTaken
     ) {
+      errorsBox.innerHTML +=
+        "Email musi zawierać @ i musi być taki sam w obu polach <br>";
       return false;
     } else {
       return true;
@@ -209,6 +218,7 @@
   //walidacja hasła
   let validatePassword = (password, repeatpassword) => {
     if (password !== repeatpassword) {
+      errorsBox.innerHTML += "Hasła muszą być takie same <br>";
       return false;
     } else {
       return true;
@@ -218,6 +228,8 @@
   //walidacja długości
   let validateLenght = (text, length) => {
     if (text.length > length || text.length < 2) {
+      errorsBox.innerHTML +=
+        "Ulica i miasto muszą mieć więcej niz 2 znaki <br>";
       return false;
     } else return true;
   };
@@ -231,6 +243,8 @@
     thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13);
 
     // Porównaj datę urodzenia z datą "13 lat temu"
+    if (birthdateValue > thirteenYearsAgo)
+      errorsBox.innerHTML += "Uzytkownik musi miec +13 lat <br>";
     return birthdateValue <= thirteenYearsAgo;
   };
 </script>
